@@ -4,6 +4,8 @@ import {
   Plus, Minus, TrendingUp, Award, Package, ArrowLeft, 
   Info, Trash2, CheckCircle2, ChevronRight
 } from 'lucide-react';
+import SofiaChatWidget from './components/SofiaChatWidget';
+import ProfileScreen, { ProfileButton } from './components/ClientProfileMenu';
 
 // --- DATOS SIMULADOS (Actualizados con Categorías) ---
 // PARA CAMBIAR LAS FOTOS: Agrega la URL de tu imagen real en la propiedad 'imageUrl' de cada producto.
@@ -124,7 +126,8 @@ const BottomNav = ({ view, setView, cartTotals }) => (
 
 export default function App() {
   // --- ESTADOS ---
-  const [view, setView] = useState('home'); // 'home' | 'catalog' | 'returnables' | 'cart' | 'success'
+  const [view, setView] = useState('home'); // 'home' | 'catalog' | 'returnables' | 'cart' | 'success' | 'profile'
+  const [profileReturnView, setProfileReturnView] = useState('home');
   const [activeCategory, setActiveCategory] = useState('Todo');
   const [searchQuery, setSearchQuery] = useState('');
   const [showReturnablesInfo, setShowReturnablesInfo] = useState(false);
@@ -170,6 +173,15 @@ export default function App() {
     setView('home');
   };
 
+  const openProfile = () => {
+    setProfileReturnView(view);
+    setView('profile');
+  };
+
+  const closeProfile = () => {
+    setView(profileReturnView);
+  };
+
   // --- CÁLCULOS DERIVADOS ---
   const cartTotals = useMemo(() => {
     let subtotal = 0;
@@ -212,17 +224,20 @@ export default function App() {
       <div className="flex flex-col h-full relative">
         <header className="bg-white px-4 pt-5 pb-4 sticky top-0 z-20 shadow-sm rounded-b-2xl border-b border-gray-100">
           <div className="flex justify-between items-start mb-4">
-            <div className="flex flex-col">
-              <span className="text-[11px] text-gray-500 font-medium uppercase tracking-wider mb-0.5">Hola, Botillería Centro</span>
+            <div className="flex flex-col pr-2">
+              <span className="text-[11px] text-gray-500 font-medium uppercase tracking-wider mb-0.5">Hola, Samuel</span>
               <span className="text-sm font-bold text-gray-900 flex items-center">
-                Temuco
+                Casino Mayor Temuco
                 <div className="w-2 h-2 bg-green-500 rounded-full ml-2"></div>
               </span>
             </div>
-            <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
-              <Bell size={22} />
-              <span className="absolute top-1.5 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
-            </button>
+            <div className="flex items-center gap-0.5 shrink-0">
+              <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
+                <Bell size={22} />
+                <span className="absolute top-1.5 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+              </button>
+              <ProfileButton onClick={openProfile} />
+            </div>
           </div>
           
           <div className="relative">
@@ -310,8 +325,8 @@ export default function App() {
 
     return (
       <div className="flex flex-col h-full relative bg-[#F3F4F6]">
-        <header className="bg-white px-4 py-4 sticky top-0 z-20 shadow-sm rounded-b-2xl border-b border-gray-100 flex items-center justify-between">
-          <div className="relative w-full">
+        <header className="bg-white px-4 py-4 sticky top-0 z-20 shadow-sm rounded-b-2xl border-b border-gray-100 flex items-center gap-2">
+          <div className="relative flex-1">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
               <Search size={18} className="text-gray-400" />
             </div>
@@ -323,6 +338,7 @@ export default function App() {
               className="w-full bg-gray-100/80 text-sm font-medium text-gray-900 rounded-xl pl-10 pr-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#006838] focus:bg-white transition-all border border-transparent focus:border-[#006838]/20 placeholder-gray-500 shadow-inner"
             />
           </div>
+          <ProfileButton onClick={openProfile} />
         </header>
         <main className="flex-1 overflow-y-auto px-4 py-6 pb-24 custom-scrollbar">
           <div className="grid grid-cols-2 gap-3.5">
@@ -350,9 +366,12 @@ export default function App() {
   const renderReturnables = () => (
     <div className="flex flex-col h-full relative bg-[#F3F4F6]">
       <header className="bg-[#eaf4ed] px-4 pt-6 pb-8 sticky top-0 z-20 shadow-sm rounded-b-3xl border-b border-[#006838]/20">
-        <h1 className="text-xl font-bold text-[#006838] flex items-center mb-4">
-          <RefreshCcw size={24} className="mr-2" /> Mis Retornables
-        </h1>
+        <div className="flex items-start justify-between mb-4">
+          <h1 className="text-xl font-bold text-[#006838] flex items-center">
+            <RefreshCcw size={24} className="mr-2" /> Mis Retornables
+          </h1>
+          <ProfileButton onClick={openProfile} />
+        </div>
         <div className="bg-white rounded-xl p-4 shadow-sm border border-green-100">
           <p className="text-sm text-gray-500 font-medium mb-1">Saldo de Envases a favor</p>
           <div className="flex items-end justify-between">
@@ -570,6 +589,8 @@ export default function App() {
         {view === 'returnables' && renderReturnables()}
         {view === 'cart' && renderCart()}
         {view === 'success' && renderSuccess()}
+        {view === 'profile' && <ProfileScreen onBack={closeProfile} />}
+        {view !== 'profile' && view !== 'cart' && view !== 'success' && <SofiaChatWidget />}
       </div>
       
       <style dangerouslySetInnerHTML={{__html: `
