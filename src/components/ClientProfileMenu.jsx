@@ -13,7 +13,6 @@ import {
   RefreshCcw,
   Crown,
   CheckCircle2,
-  HelpCircle,
 } from 'lucide-react';
 
 export const CLIENT_PROFILE = {
@@ -24,14 +23,13 @@ export const CLIENT_PROFILE = {
   nextLevel: 'Socio Estratégico',
   levelProgress: 50,
   upgradeHint:
-    'Mantén tus compras sobre $300.000 durante 2 meses más o suma productos Premium para calificar como Socio Estratégico',
+    'Para llegar a Socio Estratégico, eleva tu mix retornable a al menos 45% y apunta a más de 40 HL mensuales o sobre $500.000 CLP con productos premium.',
 };
 
 const MENU_ITEMS = [
   { id: 'settings', label: 'Ajustes', icon: Settings },
   { id: 'terms', label: 'Términos y condiciones', icon: FileText },
   { id: 'membership', label: 'Nivel de cliente', icon: Award },
-  { id: 'help', label: 'Ayuda', icon: HelpCircle },
 ];
 
 const CLIENT_TIERS = [
@@ -68,19 +66,19 @@ const CLIENT_TIERS = [
         isSummary: true,
       },
       {
-        title: 'Prioridad en Logística Inversa',
+        title: 'Retornables como prioridad',
         description:
-          'El transportista tiene la obligación de retirar sus envases declarados prioritariamente para evitar descuadres físicos en su local.',
+          'Tu mix debe incluir al menos 30% en formatos retornables y tu declaración de envases debe coincidir en más del 98% con la revisión física.',
       },
       {
-        title: 'Liberación de Garantía en <24 horas',
+        title: 'Compras constantes',
         description:
-          'Cuando devuelves tus envases, el descuento se acredita en tu cuenta en menos de 24 horas, para que recuperes tu dinero más rápido.',
+          'El nivel 2 se alcanza con compras entre 16 y 40 HL mensuales y comportamiento estable en la app.',
       },
       {
-        title: 'Descuentos por consistencia circular',
+        title: 'Descuentos por consistencia',
         description:
-          'Acceso a ofertas extra en productos retornables, con descuentos adicionales sobre el precio habitual.',
+          'Acceso a ofertas extra en productos retornables cuando demuestras hábitos de compra circulares.',
       },
     ],
   },
@@ -98,41 +96,23 @@ const CLIENT_TIERS = [
         isSummary: true,
       },
       {
-        title: 'Línea de Crédito Operativa',
+        title: 'Volumen y premium',
         description:
-          'Desbloqueo de financiamiento directo en el checkout para resolver su tensión de liquidez diaria (elimina el punto de dolor del CJM).',
+          'Logras el nivel más alto con más de 40 HL al mes, o compras por encima de $500.000 CLP, y al menos 15% en SKUs premium.',
       },
       {
-        title: 'Ventana Horaria de Despacho',
+        title: 'Retornables avanzados',
         description:
-          'Antes de confirmar tu pedido ves el horario exacto en que llegará el camión, para que puedas organizarte sin sorpresas.',
+          'Tu mix debe superar el 45% en formatos retornables, mostrando un compromiso real con la logística inversa.',
       },
       {
-        title: 'Asesoría comercial presencial',
+        title: 'Pago confiable',
         description:
-          'Recibes visitas de un ejecutivo comercial de CCU que te ayuda a optimizar tu negocio y sacarle el máximo provecho a tu local.',
+          'El historial sin rechazos ni disputas durante 12 meses refuerza tu elegibilidad como socio estratégico.',
       },
     ],
   },
 ];
-
-const QUALIFICATION_FAQ = {
-  question: '¿Cómo califico a los niveles de cliente?',
-  answer: [
-    {
-      level: 'Cliente digital',
-      text: 'Es tu punto de partida al registrarte. Compras en la app con acceso al catálogo completo y precios mayoristas base.',
-    },
-    {
-      level: 'Cliente circular',
-      text: 'Subes a este nivel cuando mantienes un flujo constante de compras con productos retornables y devuelves tus envases de forma regular.',
-    },
-    {
-      level: 'Socio Estratégico',
-      text: 'Alcanzas el nivel más alto manteniendo compras sobre $300.000 durante 2 meses consecutivos, o incorporando productos Premium de forma sostenida en tus pedidos.',
-    },
-  ],
-};
 
 function MembershipLevelBadge() {
   return (
@@ -159,47 +139,6 @@ function MembershipLevelBadge() {
           {CLIENT_PROFILE.upgradeHint}
         </p>
       </div>
-    </div>
-  );
-}
-
-function HelpQualificationContent({ isExpanded, onToggle }) {
-  return (
-    <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white">
-      <button
-        onClick={onToggle}
-        className={`w-full flex items-center gap-3 px-3.5 py-3.5 text-left transition-colors ${
-          isExpanded ? 'bg-[#eaf4ed]/60' : 'bg-white hover:bg-gray-50'
-        }`}
-        aria-expanded={isExpanded}
-      >
-        <div className="w-10 h-10 rounded-xl bg-[#006838]/10 flex items-center justify-center shrink-0">
-          <HelpCircle size={20} className="text-[#006838]" />
-        </div>
-        <span className="flex-1 text-sm font-bold text-gray-900">{QUALIFICATION_FAQ.question}</span>
-        <ChevronDown
-          size={20}
-          className={`text-gray-400 shrink-0 transition-transform duration-200 ${
-            isExpanded ? 'rotate-180' : ''
-          }`}
-        />
-      </button>
-
-      {isExpanded && (
-        <div className="px-3.5 pb-4 pt-1 border-t border-gray-100 bg-[#eaf4ed]/30">
-          <ul className="space-y-3 mt-2">
-            {QUALIFICATION_FAQ.answer.map((item) => (
-              <li key={item.level} className="flex gap-2.5">
-                <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-[#006838]" />
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">{item.level}</p>
-                  <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">{item.text}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }
@@ -310,12 +249,10 @@ function MembershipTiersContent({ expandedTier, onToggleTier }) {
 export default function ProfileScreen({ onBack }) {
   const [section, setSection] = useState('main');
   const [expandedTier, setExpandedTier] = useState('circular');
-  const [helpExpanded, setHelpExpanded] = useState(false);
 
   const handleBack = () => {
-    if (section === 'membership' || section === 'help') {
+    if (section === 'membership') {
       setSection('main');
-      setHelpExpanded(false);
       return;
     }
     onBack();
@@ -325,21 +262,13 @@ export default function ProfileScreen({ onBack }) {
     if (itemId === 'membership') {
       setSection('membership');
     }
-    if (itemId === 'help') {
-      setSection('help');
-    }
   };
 
   const handleToggleTier = (tierId) => {
     setExpandedTier((prev) => (prev === tierId ? null : tierId));
   };
 
-  const title =
-    section === 'membership'
-      ? 'Nivel de cliente'
-      : section === 'help'
-        ? 'Ayuda'
-        : 'Mi perfil';
+  const title = section === 'membership' ? 'Nivel de cliente' : 'Mi perfil';
 
   return (
     <div className="flex flex-col h-full bg-[#F3F4F6]">
@@ -366,11 +295,6 @@ export default function ProfileScreen({ onBack }) {
               onToggleTier={handleToggleTier}
             />
           </>
-        ) : section === 'help' ? (
-          <HelpQualificationContent
-            isExpanded={helpExpanded}
-            onToggle={() => setHelpExpanded((prev) => !prev)}
-          />
         ) : (
           <>
             <div className="bg-gradient-to-br from-[#006838] to-[#004224] rounded-2xl p-4 text-white shadow-[0_8px_20px_-6px_rgba(0,104,56,0.45)] mb-6">

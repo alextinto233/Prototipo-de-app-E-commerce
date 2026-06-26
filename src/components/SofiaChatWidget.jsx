@@ -23,6 +23,14 @@ const FAQ_ITEMS = [
       'Una vez confirmado tu pedido recibirás un número de orden (por ejemplo, #10045). Puedes consultarme en cualquier momento con ese número y te indicaré si está en preparación, en ruta o entregado.',
   },
   {
+    question: '¿Qué criterios usan para los niveles de cliente?',
+    answer: `En Mi Carro tus niveles se basan en tu volumen de compra, el uso de retornables y la consistencia de tus cobros:
+
+- Cliente Digital: nivel base con compras de 0 a 15 HL mensuales, al menos 1 pedido en la app y pago al contado. No es obligatorio tener retornables.
+- Cliente Circular: nivel de crecimiento para compras de 16 a 40 HL mensuales, al menos 30% de tu mix en formatos retornables y una coincidencia física superior al 98% entre envases declarados y los validados.
+- Socio Estratégico: nivel premium para compras sobre 40 HL o más de $500.000 CLP al mes, con más del 45% de retornables, al menos 15% en SKUs premium y un historial de pagos sin rechazos en el último año.`,
+  },
+  {
     question: '¿Qué formas de pago aceptan?',
     answer:
       'Aceptamos transferencia bancaria, pago contra entrega en efectivo y tarjetas de débito/crédito a través del terminal del conductor. Los pagos con transferencia deben confirmarse antes del despacho.',
@@ -30,7 +38,7 @@ const FAQ_ITEMS = [
 ];
 
 const DEFAULT_REPLY =
-  'Gracias por tu consulta. Por ahora puedo ayudarte con horarios de entrega, retornables, montos mínimos, seguimiento de pedidos y formas de pago. Selecciona una pregunta frecuente o escríbeme con más detalle.';
+  'Gracias por tu consulta. Por ahora puedo ayudarte con horarios de entrega, retornables, montos mínimos, seguimiento de pedidos, niveles de cliente y formas de pago. Selecciona una pregunta frecuente o escríbeme con más detalle.';
 
 const WELCOME_MESSAGE = {
   id: 'welcome',
